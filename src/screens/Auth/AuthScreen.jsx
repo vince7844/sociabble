@@ -8,7 +8,7 @@ const CHANNEL_ID = "MySociabble"
 const apiUrl = `Api/1_0/posts/Channel/${CHANNEL_ID}?count=36`
 
 const Auth = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [token, setToken] = useState();
   const [posts, setPosts] = useState(null);
   const navigate = useNavigate();
@@ -17,6 +17,7 @@ const Auth = () => {
     e.preventDefault();
 
     try {
+      setLoading(true)
       const sociabble_API = await axios.get(apiUrl, { 
         headers: {
           "X-Sociabble-Device": "app",
@@ -26,29 +27,31 @@ const Auth = () => {
       console.log("RETOUR API = ", sociabble_API.data)
       const dataAPI = sociabble_API.data
       setPosts(dataAPI.Posts)
+      setLoading(false)
     } catch (e) {
       console.error(e.message)
     }
   }
 
   useEffect(() => {
-    posts && navigate('/home', { state: { dataPosts : posts } })
- }, [posts]);
+    posts && !loading && navigate('/home', { state: { dataPosts : posts } })
+  }, [posts, loading, navigate]);
 
   return (
     <div className="auth-screen">
       <div className="form-signin">
         <form onSubmit={submit}>
           <h1 className="h3 fw-normal pb-3 text-white">Authentification</h1>
-          <div className="form-box p-5 bg-white shadow-sm">
+          <div className="text-center p-5 bg-white shadow-sm">
             <div className="form-floating">
               <input type="text" className="form-control bg-light" id="floatingToken" 
-                    placeholder="Token" 
-                    onChange={e => setToken(e.target.value)} 
-                    required />
+                     placeholder="Token" 
+                     onChange={e => setToken(e.target.value)} 
+                     required />
               <label for="floatingToken">Token</label>
             </div>
             <button className="w-25 btn btn-lg btn-primary mt-3" type="submit">Login</button>
+            { loading && <div className="spinner-border text-primary" role="status"></div> }
           </div>
         </form>
       </div>
