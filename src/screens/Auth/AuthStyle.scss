@@ -1,0 +1,36 @@
+.auth-screen {
+  background-color: cornflowerblue;
+}
+
+.form-signin {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 500px;
+  padding: 15px;
+  margin: auto;
+
+  .checkbox {
+    font-weight: 400;
+  }
+
+  .form-floating:focus-within {
+    z-index: 2;
+  }
+  
+  input[type="token"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}
+
+form {
+  width: 530px;
+}
+
+.form-box {
+  text-align: center;
+}
