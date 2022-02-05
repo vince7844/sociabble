@@ -1,8 +1,9 @@
-.description-space {
+.description {
   display: flex;
-  align-items: center;
-  height: 50%;
-  background-color: rgba(0, 0, 0, 0.4);
+  text-align: left;
+  flex-direction: column;
+  height: 40%;
+  background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
   width: 100%;
   bottom: 0;
@@ -15,4 +16,15 @@
     overflow: hidden;
     margin: 0;
   }
+}
+
+.card-img {
+  object-fit: cover; 
+  height: 300px
+}
+
+.social-media-name {
+  text-transform: capitalize;
+  padding-top: 7px;
+  font-weight: bold;
 }

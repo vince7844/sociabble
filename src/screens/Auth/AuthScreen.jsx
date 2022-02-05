@@ -46,7 +46,6 @@ const Auth = () => {
 
   useEffect(() => {
     posts && !loading && navigate('/home', { state: { dataPosts : posts } }) 
-    console.log('handle route change here', location.pathname)
   }, [posts, loading, navigate, location]);
 
   return (

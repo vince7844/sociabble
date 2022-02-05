@@ -20,10 +20,12 @@ const Home = () => {
           <p className="text-white m-0 ps-3">Sociabble Test Tech Front</p>
         </nav>
       </div>
-      <div className="row p-5">
+      <div className="post-cards row p-5">
         { posts.map(post => <Card key={post.Id} 
                                   postImageUrl={post.ContentImageUrl}
-                                  postTitle={post.Title} />)} 
+                                  postTitle={post.Title}
+                                  postSocialMedia={post.SocialNetworkType}
+                                  postUserProfilePicture={post.AccountProfilePicture} />)} 
       </div>
     </div>
   )
