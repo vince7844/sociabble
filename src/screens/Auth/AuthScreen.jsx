@@ -34,11 +34,10 @@ const Auth = () => {
     } catch (e) {
       console.error(e.message)
       setError(true)
-      setErrorMessage(true)
     }
 
     setLoading(false)
-    error && setErrorMessage(!errorMessage)
+    error && errorMessage && setErrorMessage(false)
   }
 
   const closeErrorMessage = () => {

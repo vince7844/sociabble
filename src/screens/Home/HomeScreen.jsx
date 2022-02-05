@@ -21,7 +21,9 @@ const Home = () => {
         </nav>
       </div>
       <div className="row p-5">
-        { posts.map(post => <Card key={post.Id} postImageUrl={post.ContentImageUrl} />)} 
+        { posts.map(post => <Card key={post.Id} 
+                                  postImageUrl={post.ContentImageUrl}
+                                  postTitle={post.Title} />)} 
       </div>
     </div>
   )
