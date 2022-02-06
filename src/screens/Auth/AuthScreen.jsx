@@ -15,7 +15,6 @@ const Auth = () => {
   const [posts, setPosts] = useState(null);
   const [errorMessage, setErrorMessage] = useState(false)
   const navigate = useNavigate();
-  const location = useLocation();
 
   const submit = async (e) => {
     e.preventDefault();
@@ -46,13 +45,13 @@ const Auth = () => {
 
   useEffect(() => {
     posts && !loading && navigate('/home', { state: { dataPosts : posts } }) 
-  }, [posts, loading, navigate, location]);
+  }, [posts, loading, navigate]);
 
   return (
     <div className="auth-screen" style={{ backgroundColor: defaultColors.background }}>
       <div className="form-signin">
         <div className="form-with-error">
-          <form onSubmit={submit}>
+          <form className="container p-0" onSubmit={submit}>
             <h1 className="h3 fw-normal pb-3 text-white">Authentification</h1>
             <div className="text-center p-5 bg-white shadow-sm">
               <div className="form-floating">
@@ -62,7 +61,7 @@ const Auth = () => {
                       required />
                 <label for="floatingToken">Token</label>
               </div>
-              <button className="w-25 btn btn-lg btn-primary mt-3" type="submit">Login</button>
+              <button className="btn btn-lg btn-primary mt-3" type="submit">Login</button>
               { loading && <div className="spinner-border text-primary" role="status"></div> }
             </div>
           </form>
