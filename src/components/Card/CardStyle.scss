@@ -2,29 +2,44 @@
   display: flex;
   text-align: left;
   flex-direction: column;
-  height: 40%;
+  height: 50%;
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
   width: 100%;
   bottom: 0;
-  color: #FFF;
+  color: #FFFFFF;
   padding: 10px;
   font-size: 12px;
 
-  p {
-    height: 35px;
+  .social-media-creator {
+    text-transform: capitalize;
+    padding-top: 7px;
+    font-weight: bold;
+  }
+
+  .social-media-title {
+    max-height: 50px;
     overflow: hidden;
-    margin: 0;
   }
 }
 
 .card-img {
   object-fit: cover; 
-  height: 300px
+  height: 300px;
+  width: 100%;
 }
 
-.social-media-name {
-  text-transform: capitalize;
-  padding-top: 7px;
-  font-weight: bold;
+.icons {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 5px;
+
+  i {
+    padding: 6px 9px;
+    margin: 5px;
+    border-radius: 15px;
+    cursor: pointer;
+  }  
 }
+

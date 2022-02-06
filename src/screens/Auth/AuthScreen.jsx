@@ -48,7 +48,7 @@ const Auth = () => {
   }, [posts, loading, navigate]);
 
   return (
-    <div className="auth-screen" style={{ backgroundColor: defaultColors.background }}>
+    <div className="auth-screen" style={{ backgroundColor: defaultColors.backgroundBlue }}>
       <div className="form-signin">
         <div className="form-with-error">
           <form className="container p-0" onSubmit={submit}>
@@ -59,7 +59,7 @@ const Auth = () => {
                       placeholder="Token" 
                       onChange={e => setToken(e.target.value)} 
                       required />
-                <label for="floatingToken">Token</label>
+                <label htmlFor="floatingToken">Token</label>
               </div>
               <button className="btn btn-lg btn-primary mt-3" type="submit">Login</button>
               { loading && <div className="spinner-border text-primary" role="status"></div> }

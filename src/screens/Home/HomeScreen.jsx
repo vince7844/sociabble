@@ -8,14 +8,14 @@ const Home = () => {
   const { state } = useLocation();
   const posts = state.dataPosts
 
-  useEffect(() => {
-    console.log("Home data = ", posts)
-  })
+  // useEffect(() => {
+  //   console.log("Home data = ", posts)
+  // })
 
   return (
     <div className="home-screen mt-5">
       <div className="navigation fixed-top">
-        <nav style={{backgroundColor: defaultColors.background}} 
+        <nav style={{backgroundColor: defaultColors.backgroundBlue}} 
             className="navbar p-2 justify-content-start">
           <p className="text-white m-0 ps-3">Sociabble Test Tech Front</p>
         </nav>
@@ -24,7 +24,7 @@ const Home = () => {
         { posts.map(post => <Card key={post.Id} 
                                   postImageUrl={post.ContentImageUrl}
                                   postTitle={post.Title}
-                                  postSocialMedia={post.SocialNetworkType}
+                                  postCreator={post.SocialAccountDisplayName}
                                   postUserProfilePicture={post.AccountProfilePicture} />)} 
       </div>
     </div>

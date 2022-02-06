@@ -4,6 +4,7 @@ import AuthScreen from './screens/Auth/AuthScreen';
 import HomeScreen from './screens/Home/HomeScreen';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function App() {
   return (
