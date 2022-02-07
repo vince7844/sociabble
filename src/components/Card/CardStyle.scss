@@ -1,3 +1,7 @@
+.card {
+  cursor: pointer;
+}
+
 .description {
   display: flex;
   text-align: left;
@@ -39,7 +43,6 @@
     padding: 6px 9px;
     margin: 5px;
     border-radius: 15px;
-    cursor: pointer;
   }  
 }
 
