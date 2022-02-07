@@ -48,7 +48,7 @@ const Auth = () => {
   }, [posts, loading, navigate]);
 
   return (
-    <div className="auth-screen" style={{ backgroundColor: defaultColors.backgroundBlue }}>
+    <div className="auth-screen" style={{ backgroundColor: defaultColors.blue }}>
       <div className="form-signin">
         <div className="form-with-error w-100">
           <form className="container p-0" onSubmit={submit}>

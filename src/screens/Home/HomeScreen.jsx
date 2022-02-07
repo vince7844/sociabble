@@ -19,9 +19,9 @@ const Home = () => {
   // For Modal rendering, once
   const post = posts[postId]
 
-  // useEffect(() => {
-  //   console.log("Home data = ", posts)
-  // })
+  useEffect(() => {
+    console.log("Home data = ", posts)
+  })
 
   // Store image size
   const onImgLoad = ({ target: img }) => {
@@ -48,19 +48,20 @@ const Home = () => {
   }
 
   return (
-    <div className="home-screen mt-5">
-      <div className="navigation fixed-top">
-        <nav style={{backgroundColor: defaultColors.backgroundBlue}} 
+    <div className="home-screen">
+      <div className="navigation">
+        <nav style={{backgroundColor: defaultColors.blue}} 
             className="navbar p-2 justify-content-start">
           <p className="text-white m-0 ps-3">Sociabble Test Tech Front</p>
         </nav>
       </div>
-      <div className="post-cards row p-5">
+      <div className="post-cards row px-3 py-5 gx-0">
         {/* Display all cards */}
         { posts.map((post, postIndex) => 
             <div className={`card-container col-12 col-sm-6 col-md-3 p-2`} key={post.Id}>
               <Card postImageUrl={post.ContentImageUrl}
                     postTitle={post.Title}
+                    postSocialNetworkName={post.SocialNetworkType}
                     postCreator={post.SocialAccountDisplayName}
                     postUserProfilePicture={post.AccountProfilePicture}
                     onCardClick={e => handleClickCard(e, postIndex)} />
@@ -74,6 +75,7 @@ const Home = () => {
             hidePostModal={() => setPostId(null)}
             postImageUrl={post.ContentImageUrl}
             postTitle={post.Title}
+            postSocialNetworkName={post.SocialNetworkType}
             postCreator={post.SocialAccountDisplayName}
             postUserProfilePicture={post.AccountProfilePicture} /> 
       }

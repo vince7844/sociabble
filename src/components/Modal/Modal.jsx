@@ -4,8 +4,8 @@ import Modal from "react-bootstrap/Modal";
 import ModalBody from "react-bootstrap/ModalBody";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import ModalFooter from "react-bootstrap/ModalFooter";
-import ModalTitle from "react-bootstrap/ModalTitle";
-
+import Icons from '../Icons/Icons';
+// import ModalTitle from "react-bootstrap/ModalTitle";
 
 const PostModal = ({ 
   showPostModal, 
@@ -13,18 +13,27 @@ const PostModal = ({
   postImageUrl,
   postTitle,
   postCreator,
+  postSocialNetworkName,
   postUserProfilePicture }) => (
-    <Modal show={showPostModal} centered>
+    <Modal show={showPostModal} onHide={hidePostModal} className="w-70" centered>
       <ModalHeader>
-        <img src={postUserProfilePicture} width="10" height="10" />
-        <ModalTitle>{postCreator}</ModalTitle>
+        <div className="header-left d-flex">
+          <img src={postUserProfilePicture} className="align-self-center" width="40" />
+          <div className="d-flex flex-column ms-3">
+            <p>{postCreator}</p>
+            <p className="text-capitalize">{postSocialNetworkName}</p>
+          </div>
+        </div>
+        {/* <div className="header-right">
+          <p>Titre du post</p>
+        </div> */}
       </ModalHeader>
-      <img src={postImageUrl} />
+      { postImageUrl && <img className="col-md-12 p-3" src={postImageUrl} /> }
       <ModalBody>
         {postTitle}
       </ModalBody>
       <ModalFooter>
-        <button className="btn btn-primary" onClick={hidePostModal}>Cancel</button>
+        <Icons hasBackground={false} />
       </ModalFooter>
     </Modal>
   )

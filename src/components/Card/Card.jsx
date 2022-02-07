@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "./CardStyle.scss";
 import noImageIcon from "../../assets/images/default/no-image-icon.png";
-import { defaultColors } from '../../assets/colors/default-colors';
+import Icons from "../Icons/Icons";
 
 const Card = ({ 
   postImageUrl,
@@ -11,9 +11,6 @@ const Card = ({
   onCardClick }) => {
   const [liked, isLiked] = useState(false);
   const postTitleTruncate = postTitle.length < 120 ? postTitle : postTitle.substring(0, 120) + '...';
-  const bgBlue = defaultColors.backgroundBlue;
-  const bgGreen = defaultColors.backgroundGreen;
-  const bgRed = defaultColors.backgroundRed;
 
   return (
     <div className="card border-0" onClick={onCardClick}>
@@ -35,11 +32,7 @@ const Card = ({
           <p className="social-media-creator"><strong>{postCreator}</strong></p>
         </div>
         <p className="social-media-title m-0">{postTitleTruncate}</p>
-        <div className="icons d-flex justify-content-end">
-          <i className="bi bi-heart-fill" style={{backgroundColor: liked ? bgRed : bgGreen}}></i>
-          <i className="bi bi-bookmark-fill" style={{backgroundColor: bgGreen}}></i>
-          <i className="bi bi-share-fill" style={{backgroundColor: bgBlue}}></i>
-        </div>
+        <Icons hasBackground={true} />
       </div>
     </div>
   )
