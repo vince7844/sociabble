@@ -21,7 +21,7 @@ const PostModal = ({
           <img src={postUserProfilePicture} className="align-self-center" width="40" />
           <div className="d-flex flex-column ms-3">
             <p>{postCreator}</p>
-            <p className="text-capitalize">{postSocialNetworkName}</p>
+            <small className="text-capitalize">{postSocialNetworkName}</small>
           </div>
         </div>
         {/* <div className="header-right">
