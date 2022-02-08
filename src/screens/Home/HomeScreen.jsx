@@ -95,10 +95,12 @@ const Home = () => {
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropDownChannel">
             { loading 
-                ? <div class="d-flex justify-content-center m-5">
+                ? <div className="d-flex justify-content-center m-5">
                     <div className="me-4 spinner-border text-primary" role="status"></div>
                   </div>
-                : channels.map(channel => <li><a className="dropdown-item" href="/home">{channel.Name}</a></li>)
+                : channels 
+                    ? channels.map(channel => <li key={channel.Id}><a className="dropdown-item" href="/">{channel.Name}</a></li>)
+                    : <li className="p-2">No channels !</li> 
             }
           </ul>
         </div>
