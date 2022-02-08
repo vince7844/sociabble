@@ -26,7 +26,8 @@ const Home = () => {
   const channelUrl = 'Api/1_0/Channels/GetAllLight';
 
   // For Modal rendering, once
-  const post = posts[postIndex]
+  const postsToDisplay = newPosts ? newPosts : posts
+  const post = postsToDisplay[postIndex]
 
   // useEffect(() => {
   //   console.log("channels = ", channels)
@@ -65,7 +66,6 @@ const Home = () => {
     setLoadingNewPosts(false);
   }
 
-  const postsToDisplay = newPosts ? newPosts : posts
 
   // Store image size
   // const onImgLoad = ({ target: img }) => {
@@ -84,6 +84,13 @@ const Home = () => {
   //   }
   //   return 'col-12 col-sm-6 col-md-3' 
   // }
+
+  // Loader spinner
+  const spinner = () => (
+    <div className="d-flex justify-content-center m-5">
+      <div className="me-4 spinner-border text-primary" role="status"></div>
+    </div>
+  )
 
   // When clicking on a specific card, retrieve the id of the card, and show modal
   const handleClickCard = (e, postIndex) => {
@@ -115,9 +122,7 @@ const Home = () => {
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropDownChannel">
             { loadingChannels 
-                ? <div className="d-flex justify-content-center m-5">
-                    <div className="me-4 spinner-border text-primary" role="status"></div>
-                  </div>
+                ? spinner()
                 : channels 
                     ? channels.map(channel => 
                         <li key={channel.Id} onClick={e => handleClickChannelName(e, channel.Id)}>
@@ -130,15 +135,17 @@ const Home = () => {
         {/* POST CARDS */}
         <div className="post-cards row px-3 py-5 gx-0">
           {/* Display all cards */}
-          { postsToDisplay.map((post, postIndex) => 
-              <div className={`card-container col-12 col-sm-6 col-md-3 p-2`} key={post.Id}>
-                <Card postImageUrl={post.ContentImageUrl}
-                      postTitle={post.Title}
-                      postSocialNetworkName={post.SocialNetworkType}
-                      postCreator={post.SocialAccountDisplayName}
-                      postUserProfilePicture={post.AccountProfilePicture}
-                      onCardClick={e => handleClickCard(e, postIndex)} />
-              </div>
+          { loadingNewPosts 
+             ? spinner()
+             : postsToDisplay.map((post, postIndex) => 
+                <div className={`card-container col-12 col-sm-6 col-md-3 p-2`} key={post.Id}>
+                  <Card postImageUrl={post.ContentImageUrl}
+                        postTitle={post.Title}
+                        postSocialNetworkName={post.SocialNetworkType}
+                        postCreator={post.SocialAccountDisplayName}
+                        postUserProfilePicture={post.AccountProfilePicture}
+                        onCardClick={e => handleClickCard(e, postIndex)} />
+                </div>
             )} 
         </div>
         {/* Render modal, check first the postIndex */}
