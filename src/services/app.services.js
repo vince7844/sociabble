@@ -10,6 +10,16 @@ export const getPosts = (postUrl, token) => {
   })
 }
 
+export const getPostsByChannelId = (newPostUrl, token) => {
+  return axios.get(newPostUrl, { 
+    headers: {
+      "X-Sociabble-Device": "app",
+      "Authorization": "Bearer " + token,
+      "Content-Type": "application/json"
+    }
+  })
+}
+
 export const addLike = (likeUrl, token, pId) => {
   return axios.post(likeUrl, {
     postId: pId,

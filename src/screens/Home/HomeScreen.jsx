@@ -4,24 +4,26 @@ import { defaultColors } from '../../assets/colors/default-colors';
 import Card from '../../components/Card/Card';
 import PostModal from '../../components/Modal/Modal';
 import { LikeContext } from '../../contexts/LikeContext';
-import { getChannels } from '../../services/app.services';
+import { getChannels, getPostsByChannelId } from '../../services/app.services';
 import "./HomeStyle.scss"
 
 const Home = () => {
   const { state } = useLocation();
-  const blue = defaultColors.blue
-  const channelUrl = 'Api/1_0/Channels/GetAllLight';
-  // For Cards rendering, multiple times
   const posts = state.dataPosts;
   const token = state.userToken;
+
+  const blue = defaultColors.blue
 
   const [liked, setLiked] = useState(false)
   // const [dimension, setDimension] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [postIndex, setPostIndex] = useState(null);
   const [channels, setChannels] = useState([]);
-  const [error, setError] = useState(false)
-  const [loading, setLoading] = useState(false);
+  const [newPosts, setNewPosts] = useState([])
+  const [loadingChannels, setLoadingChannels] = useState(false);
+  const [loadingNewPosts, setLoadingNewPosts] = useState(false);
+
+  const channelUrl = 'Api/1_0/Channels/GetAllLight';
 
   // For Modal rendering, once
   const post = posts[postIndex]
@@ -30,22 +32,40 @@ const Home = () => {
     console.log("channels = ", channels)
   })
 
-  const handleClickChannel = async (e) => {
+  const handleClickChannelButton = async (e) => {
     e.preventDefault();
 
     try {
-      setLoading(true)
+      setLoadingChannels(true)
       const channel_API = await getChannels(channelUrl, token);
       console.log("Channel API = ", channel_API.data);
       const dataChannel = channel_API.data;
       setChannels(dataChannel.Channels);
     } catch (e) {
       console.error(e.message);
-      setError(true);
     }
 
-    setLoading(false);
+    setLoadingChannels(false);
   }
+
+  const handleClickChannelName = async (e, channelId) => {
+    e.preventDefault();
+    const newPostUrl = `Api/1_0/posts/Channel/${channelId}?count=36`
+
+    try {
+      setLoadingNewPosts(true)
+      const newPosts_API = await getPostsByChannelId(newPostUrl, token);
+      console.log("NEW POST API = ", newPosts_API.data);
+      const dataNewPosts = newPosts_API.data;
+      setNewPosts(dataNewPosts.Posts);
+    } catch (e) {
+      console.error(e.message);
+    }
+
+    setLoadingNewPosts(false);
+  }
+
+  const postsToDisplay = loadingNewPosts ? newPosts : posts
 
   // Store image size
   // const onImgLoad = ({ target: img }) => {
@@ -88,18 +108,21 @@ const Home = () => {
         </div>
         {/* CHANNEL DROPDOWN */}
         <div className="channel dropdown m-3">
-          <button style={{backgroundColor: blue}} onClick={handleClickChannel} 
+          <button style={{backgroundColor: blue}} onClick={handleClickChannelButton} 
                   className="btn dropdown-toggle text-white" type="button" id="dropDownChannel" 
                   data-bs-toggle="dropdown" aria-expanded="false">
             CHANNEL
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropDownChannel">
-            { loading 
+            { loadingChannels 
                 ? <div className="d-flex justify-content-center m-5">
                     <div className="me-4 spinner-border text-primary" role="status"></div>
                   </div>
                 : channels 
-                    ? channels.map(channel => <li key={channel.Id}><a className="dropdown-item" href="/">{channel.Name}</a></li>)
+                    ? channels.map(channel => 
+                        <li key={channel.Id} onClick={e => handleClickChannelName(e, channel.Id)}>
+                          <a className="dropdown-item" href="/">{channel.Name}</a>
+                        </li>)
                     : <li className="p-2">No channels !</li> 
             }
           </ul>
@@ -107,7 +130,7 @@ const Home = () => {
         {/* POST CARDS */}
         <div className="post-cards row px-3 py-5 gx-0">
           {/* Display all cards */}
-          { posts.map((post, postIndex) => 
+          { postsToDisplay.map((post, postIndex) => 
               <div className={`card-container col-12 col-sm-6 col-md-3 p-2`} key={post.Id}>
                 <Card postImageUrl={post.ContentImageUrl}
                       postTitle={post.Title}
