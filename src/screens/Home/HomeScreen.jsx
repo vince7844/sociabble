@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { defaultColors } from '../../assets/colors/default-colors';
 import Card from '../../components/Card/Card';
 import PostModal from '../../components/Modal/Modal';
+import Spinner from '../../components/Spinner/Spinner';
 import { LikeContext } from '../../contexts/LikeContext';
 import { getChannels, getPostsByChannelId } from '../../services/app.services';
 import "./HomeStyle.scss"
@@ -19,7 +20,7 @@ const Home = () => {
   const [showModal, setShowModal] = useState(false);
   const [postIndex, setPostIndex] = useState(null);
   const [channels, setChannels] = useState([]);
-  const [newPosts, setNewPosts] = useState([])
+  const [newPosts, setNewPosts] = useState(null)
   const [loadingChannels, setLoadingChannels] = useState(false);
   const [loadingNewPosts, setLoadingNewPosts] = useState(false);
 
@@ -85,13 +86,6 @@ const Home = () => {
   //   return 'col-12 col-sm-6 col-md-3' 
   // }
 
-  // Loader spinner
-  const spinner = () => (
-    <div className="d-flex justify-content-center m-5">
-      <div className="me-4 spinner-border text-primary" role="status"></div>
-    </div>
-  )
-
   // When clicking on a specific card, retrieve the id of the card, and show modal
   const handleClickCard = (e, postIndex) => {
     setShowModal(true)
@@ -122,7 +116,7 @@ const Home = () => {
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropDownChannel">
             { loadingChannels 
-                ? spinner()
+                ? <Spinner />
                 : channels 
                     ? channels.map(channel => 
                         <li key={channel.Id} onClick={e => handleClickChannelName(e, channel.Id)}>
@@ -136,7 +130,7 @@ const Home = () => {
         <div className="post-cards row px-3 py-5 gx-0">
           {/* Display all cards */}
           { loadingNewPosts 
-             ? spinner()
+             ? <Spinner />
              : postsToDisplay.map((post, postIndex) => 
                 <div className={`card-container col-12 col-sm-6 col-md-3 p-2`} key={post.Id}>
                   <Card postImageUrl={post.ContentImageUrl}
