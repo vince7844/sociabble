@@ -28,9 +28,9 @@ const Home = () => {
   // For Modal rendering, once
   const post = posts[postIndex]
 
-  useEffect(() => {
-    console.log("channels = ", channels)
-  })
+  // useEffect(() => {
+  //   console.log("channels = ", channels)
+  // })
 
   const handleClickChannelButton = async (e) => {
     e.preventDefault();
@@ -65,7 +65,7 @@ const Home = () => {
     setLoadingNewPosts(false);
   }
 
-  const postsToDisplay = loadingNewPosts ? newPosts : posts
+  const postsToDisplay = newPosts ? newPosts : posts
 
   // Store image size
   // const onImgLoad = ({ target: img }) => {
