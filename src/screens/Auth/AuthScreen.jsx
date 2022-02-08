@@ -39,7 +39,7 @@ const Auth = () => {
   }
 
   useEffect(() => {
-    posts && !loading && navigate('/home', { state: { dataPosts : posts } }) 
+    posts && !loading && navigate('/home', { state: { dataPosts: posts, userToken: token } }) 
   }, [posts, loading, navigate]);
 
   return (
