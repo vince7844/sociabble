@@ -45,7 +45,7 @@ const Home = () => {
       }
   
       setLoadingChannels(false);
-    } handleClickChannelButton()
+    } handleClickChannelButton();
   }, [channelButtonClicked, token])
 
 

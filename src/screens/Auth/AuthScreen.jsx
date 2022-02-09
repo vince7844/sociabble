@@ -15,7 +15,6 @@ const Auth = () => {
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState();
   const [posts, setPosts] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(false)
   const navigate = useNavigate();
 
   const submit = async (e) => {
@@ -32,12 +31,7 @@ const Auth = () => {
       setError(true);
     }
 
-    setLoading(false);
-    error && errorMessage && setErrorMessage(false);
-  }
-
-  const closeErrorMessage = () => {
-    setErrorMessage(!errorMessage)
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -63,10 +57,10 @@ const Auth = () => {
             </div>
           </form>
           { error && 
-            <div style={{ display: errorMessage ? "none" : "block" }}>
+            <div style={{ display: error ? "block" : "none" }}>
               <div className="alert alert-danger alert-dismissible mt-3">
                 <strong>Erreur !</strong> Mauvais token ou aucune connexion internet 
-                <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={closeErrorMessage}></button>
+                <button type="button" className="btn-close" data-bs-dismiss="alert" onClick={() => setError(!error)}></button>
               </div> 
             </div>
           }
