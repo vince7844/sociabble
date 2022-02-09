@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { defaultColors } from '../../assets/colors/default-colors';
 import Card from '../../components/Card/Card';
@@ -23,32 +23,31 @@ const Home = () => {
   const [newPosts, setNewPosts] = useState(null)
   const [loadingChannels, setLoadingChannels] = useState(false);
   const [loadingNewPosts, setLoadingNewPosts] = useState(false);
+  const [channelButtonClicked, setChannelButtonClicked] = useState(false)
 
   const channelUrl = 'Api/1_0/Channels/GetAllLight';
 
   // For Modal rendering, once
   const postsToDisplay = newPosts ? newPosts : posts
   const post = postsToDisplay[postIndex]
+  // const postId = post.Id
 
-  // useEffect(() => {
-  //   console.log("channels = ", channels)
-  // })
+  useEffect(() => {
+   async function handleClickChannelButton() {
+      try {
+        setLoadingChannels(true)
+        const channel_API = await getChannels(channelUrl, token);
+        console.log("Channel API = ", channel_API.data);
+        const dataChannel = channel_API.data;
+        setChannels(dataChannel.Channels);
+      } catch (e) {
+        console.error(e.message);
+      }
+  
+      setLoadingChannels(false);
+    } handleClickChannelButton()
+  }, [channelButtonClicked, token])
 
-  const handleClickChannelButton = async (e) => {
-    e.preventDefault();
-
-    try {
-      setLoadingChannels(true)
-      const channel_API = await getChannels(channelUrl, token);
-      console.log("Channel API = ", channel_API.data);
-      const dataChannel = channel_API.data;
-      setChannels(dataChannel.Channels);
-    } catch (e) {
-      console.error(e.message);
-    }
-
-    setLoadingChannels(false);
-  }
 
   const handleClickChannelName = async (e, channelId) => {
     e.preventDefault();
@@ -109,7 +108,7 @@ const Home = () => {
         </div>
         {/* CHANNEL DROPDOWN */}
         <div className="channel dropdown m-3">
-          <button style={{backgroundColor: blue}} onClick={handleClickChannelButton} 
+          <button style={{backgroundColor: blue}} onClick={() => setChannelButtonClicked(true)} 
                   className="btn dropdown-toggle text-white" type="button" id="dropDownChannel" 
                   data-bs-toggle="dropdown" aria-expanded="false">
             CHANNEL

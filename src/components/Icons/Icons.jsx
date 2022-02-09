@@ -1,16 +1,19 @@
 import React, { useContext } from 'react'
 import { defaultColors } from '../../assets/colors/default-colors';
 import { LikeContext } from '../../contexts/LikeContext';
+import { addLike } from '../../services/app.services';
 
 const Icons = ({ hasBackground }) => {
   const blue = defaultColors.blue;
   const green = defaultColors.green;
   const red = defaultColors.red;
+  const addLikeUrl = 'Api/1_0/Actions/Like';
 
-  const { liked, setLiked } = useContext(LikeContext)
+  const { liked, setLiked, token, postId } = useContext(LikeContext)
 
   const handleLikeClick = () => {
     setLiked(!liked)
+    // addLike(addLikeUrl, token, postId).then(res => console.log("add like ? ", res))
   }
 
   return (
